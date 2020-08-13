@@ -1,0 +1,665 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>5. Firmware Doc &mdash; LEIA 0.2.2 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/language_data.js"></script>
+        <script src="http://wavedrom.com/skins/default.js"></script>
+        <script src="http://wavedrom.com/WaveDrom.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. API" href="../api.html" />
+    <link rel="prev" title="4. Hardware" href="../hard.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LEIA
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Table of Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../target.html">1. About the LEIA project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">2. Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">3. Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../hard.html">4. Hardware</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">5. Firmware</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#protocol">5.1. Protocol</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#timers">5.2. Timers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#triggers">5.3. Triggers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">6. Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publi.html">7. Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../roadmap.html">8. Roadmap</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LEIA</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li><span class="section-number">5. </span>Firmware Doc</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/c/test.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="firmware-doc">
+<span id="c-test"></span><h1><span class="section-number">5. </span>Firmware Doc<a class="headerlink" href="#firmware-doc" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="protocol">
+<h2><span class="section-number">5.1. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
+<p>In order to communicate with LEIA, a simple communication protocol over uart is used. It permits to select a command, and execute it with specific data. The data produced by the command can finally be returned.</p>
+<p>Only one data buffer <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t</span></code></a> is used as the commands are executed one after one. As there is no need to keep trace of the result of the previous command, we can reuse the same buffer.</p>
+<dl class="c macro">
+<dt id="c.COMMANDS_BUFFER_MAX_LEN">
+<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code><a class="headerlink" href="#c.COMMANDS_BUFFER_MAX_LEN" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constant to define the max size of the buffers used by the protocol (<a class="reference internal" href="#c.command_cb_args_t.buffer" title="command_cb_args_t.buffer"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.buffer</span></code></a> and <a class="reference internal" href="#c.command_cb_args_t.response" title="command_cb_args_t.response"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.response</span></code></a>).</p>
+</dd></dl>
+
+<dl class="c struct">
+<dt id="c.command_cb_args">
+<em class="property">struct </em><code class="sig-name descname">command_cb_args</code><a class="headerlink" href="#c.command_cb_args" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which handle the buffer send to a callback, and a buffer for the response of the callback.</p>
+<blockquote>
+<div><dl class="c member">
+<dt id="c.command_cb_args.buffer_size">
+uint32_t <code class="sig-name descname">buffer_size</code><a class="headerlink" href="#c.command_cb_args.buffer_size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual size of <code class="docutils literal notranslate"><span class="pre">buffer</span></code>.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args.buffer">
+uint8_t <code class="sig-name descname">buffer</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args.buffer" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Buffer for the data which is send to the callback.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args.response_size">
+uint32_t <code class="sig-name descname">response_size</code><a class="headerlink" href="#c.command_cb_args.response_size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual size of the <code class="docutils literal notranslate"><span class="pre">response</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args.response">
+uint8_t <code class="sig-name descname">response</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args.response" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Buffer for the data produced by the callback.</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<p>To define a command, one have to create a <a class="reference internal" href="#c.command_t" title="command_t"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_t</span></code></a>. It needs a simple name (<a class="reference internal" href="#c.command_t.name" title="command_t.name"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_t.name</span></code></a>), which is used when debugging, a byte which is used to identify the command (<a class="reference internal" href="#c.command_t.o_command" title="command_t.o_command"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_t.o_command</span></code></a>), the maximal number of byte that can be send to the command (<a class="reference internal" href="#c.command_t.max_size" title="command_t.max_size"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_t.max_size</span></code></a>) and finally a callback to the function that will handle the command (<a class="reference internal" href="#c.command_t.callback" title="command_t.callback"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_t.callback</span></code></a>).</p>
+<dl class="c struct">
+<dt id="c.command_t">
+<em class="property">struct </em><code class="sig-name descname">command_t</code><a class="headerlink" href="#c.command_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which describe a command to be exposed through LEIA API.</p>
+<blockquote>
+<div><dl class="c member">
+<dt id="c.command_t.name">
+char <code class="sig-name descname">name</code>[30]<a class="headerlink" href="#c.command_t.name" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Command name</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_t.o_command">
+uint8_t <code class="sig-name descname">o_command</code><a class="headerlink" href="#c.command_t.o_command" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Char which identify the command</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_t.max_size">
+uint32_t <code class="sig-name descname">max_size</code><a class="headerlink" href="#c.command_t.max_size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Data max size (&lt;= COMMANDS_BUFFER_MAX_LEN)</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_t.callback">
+cb_command <code class="sig-name descname">callback</code><a class="headerlink" href="#c.command_t.callback" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to the function</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<dl class="c struct">
+<dt id="c.protocol_config_pts_t">
+<em class="property">struct </em><code class="sig-name descname">protocol_config_pts_t</code><a class="headerlink" href="#c.protocol_config_pts_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which codes the parameters to use when doing PTS negotiation.</p>
+<blockquote>
+<div><dl class="c member">
+<dt id="c.protocol_config_pts_t.protocol">
+uint8_t <code class="sig-name descname">protocol</code><a class="headerlink" href="#c.protocol_config_pts_t.protocol" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual protocol to use:</p>
+<ul class="simple">
+<li><p>0 if no protocol is forced,</p></li>
+<li><p>1 for T=0,</p></li>
+<li><p>2 for T=1.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.protocol_config_pts_t.etu">
+uint32_t <code class="sig-name descname">etu</code><a class="headerlink" href="#c.protocol_config_pts_t.etu" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>ETU value.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.protocol_config_pts_t.freq">
+uint32_t <code class="sig-name descname">freq</code><a class="headerlink" href="#c.protocol_config_pts_t.freq" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual frequency to use:</p>
+<ul class="simple">
+<li><p>0 for the default one,</p></li>
+<li><p>x for forcing a value.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.protocol_config_pts_t.negotiate_pts">
+uint8_t <code class="sig-name descname">negotiate_pts</code><a class="headerlink" href="#c.protocol_config_pts_t.negotiate_pts" title="Permalink to this definition">¶</a><br /></dt>
+<dd><ul class="simple">
+<li><p>0 for no negotiation</p></li>
+<li><p>1 for enabling negotiation</p></li>
+</ul>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.protocol_config_pts_t.negotiate_baudrate">
+uint8_t <code class="sig-name descname">negotiate_baudrate</code><a class="headerlink" href="#c.protocol_config_pts_t.negotiate_baudrate" title="Permalink to this definition">¶</a><br /></dt>
+<dd><ul class="simple">
+<li><p>0 for no baudrate negotiation</p></li>
+<li><p>1 for enabling baudrate negotiation</p></li>
+</ul>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<dl class="c struct">
+<dt id="c.protocol_config_trigger_set_t">
+<em class="property">struct </em><code class="sig-name descname">protocol_config_trigger_set_t</code><a class="headerlink" href="#c.protocol_config_trigger_set_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which code a strategy and an index to store the strategy at.</p>
+<dl class="c member">
+<dt id="c.protocol_config_trigger_set_t.index">
+uint8_t <code class="sig-name descname">index</code><a class="headerlink" href="#c.protocol_config_trigger_set_t.index" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The index of the bank where the strategy will be saved.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.protocol_config_trigger_set_t.strategy">
+<a class="reference internal" href="#c.trigger_strategy_t" title="trigger_strategy_t">trigger_strategy_t</a> <code class="sig-name descname">strategy</code><a class="headerlink" href="#c.protocol_config_trigger_set_t.strategy" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>The strategy to save.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_get_timers">
+uint8_t <code class="sig-name descname">protocol_get_timers</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_timers" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to return timers values.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_send_APDU">
+uint8_t <code class="sig-name descname">protocol_send_APDU</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_send_APDU" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to process an APDU.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_configure_pts">
+uint8_t <code class="sig-name descname">protocol_configure_pts</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_configure_pts" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to configure a smartcard.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_trigger_set_strategy">
+uint8_t <code class="sig-name descname">protocol_trigger_set_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_set_strategy" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to set a trigger strategy.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_trigger_get_strategy">
+uint8_t <code class="sig-name descname">protocol_trigger_get_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_get_strategy" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to get a trigger strategy.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_is_card_inserted">
+uint8_t <code class="sig-name descname">protocol_is_card_inserted</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_is_card_inserted" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to check if the smartcard is inserted in LEIA.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_reset_card">
+uint8_t <code class="sig-name descname">protocol_reset_card</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_reset_card" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to reset the smartcard.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_get_ATR">
+uint8_t <code class="sig-name descname">protocol_get_ATR</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_ATR" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Callback to send the ATR.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_read_char_uart">
+int <code class="sig-name descname">protocol_read_char_uart</code><span class="sig-paren">(</span><em class="property">volatile</em> s_ring_t *<em>ring_buffer</em>, char *<em>command</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_read_char_uart" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Read data from the uart, and put it in a ring buffer.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.protocol_parse_cmd">
+void <code class="sig-name descname">protocol_parse_cmd</code><span class="sig-paren">(</span><em class="property">volatile</em> s_ring_t *<em>ring_buffer</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_parse_cmd" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Parse a ring buffer to find a command to execute, call the corresponding callback.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="timers">
+<h2><span class="section-number">5.2. </span>Timers<a class="headerlink" href="#timers" title="Permalink to this headline">¶</a></h2>
+<p>Blabla</p>
+<dl class="c macro">
+<dt id="c.TIMERS_DEPTH">
+<code class="sig-name descname">TIMERS_DEPTH</code><a class="headerlink" href="#c.TIMERS_DEPTH" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Constant to define the depth of a timer. TODO</p>
+</dd></dl>
+
+<dl class="c struct">
+<dt id="c.command_cb_args_t">
+<em class="property">struct </em><code class="sig-name descname">command_cb_args_t</code><a class="headerlink" href="#c.command_cb_args_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which handle the buffer send to a callback, and a buffer for the response of the callback.</p>
+<blockquote>
+<div><dl class="c member">
+<dt id="c.command_cb_args_t.buffer_size">
+uint32_t <code class="sig-name descname">buffer_size</code><a class="headerlink" href="#c.command_cb_args_t.buffer_size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual size of <code class="docutils literal notranslate"><span class="pre">buffer</span></code>.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args_t.buffer">
+uint8_t <code class="sig-name descname">buffer</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args_t.buffer" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Buffer for the data which is send to the callback.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args_t.response_size">
+uint32_t <code class="sig-name descname">response_size</code><a class="headerlink" href="#c.command_cb_args_t.response_size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Actual size of the <code class="docutils literal notranslate"><span class="pre">response</span></code> buffer.</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.command_cb_args_t.response">
+uint8_t <code class="sig-name descname">response</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args_t.response" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Buffer for the data produced by the callback.</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.get_timers_params">
+int <code class="sig-name descname">get_timers_params</code><span class="sig-paren">(</span>uint8_t <em>depth</em><span class="sig-paren">)</span><a class="headerlink" href="#c.get_timers_params" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.timgers_get_times">
+int <code class="sig-name descname">timgers_get_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.timgers_get_times" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.get_cortex_m4_cycles">
+<em class="property">inline</em> unsigned int <code class="sig-name descname">get_cortex_m4_cycles</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#c.get_cortex_m4_cycles" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.platform_get_microseconds_ticks">
+<em class="property">inline</em> uint64_t <code class="sig-name descname">platform_get_microseconds_ticks</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#c.platform_get_microseconds_ticks" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Return the number of cycles of the CPU.</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.timeit">
+int <code class="sig-name descname">timeit</code><span class="sig-paren">(</span>uint8_t <em>timen</em><span class="sig-paren">)</span><a class="headerlink" href="#c.timeit" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Increase the corresponding timer.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="triggers">
+<h2><span class="section-number">5.3. </span>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
+<dl class="c macro">
+<dt id="c.TRIGGER_DEPTH">
+<code class="sig-name descname">TRIGGER_DEPTH</code><a class="headerlink" href="#c.TRIGGER_DEPTH" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.STRATEGY_MAX">
+<code class="sig-name descname">STRATEGY_MAX</code><a class="headerlink" href="#c.STRATEGY_MAX" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_GET_ATR_PRE">
+<code class="sig-name descname">TRIG_GET_ATR_PRE</code><a class="headerlink" href="#c.TRIG_GET_ATR_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_GET_ATR_POST">
+<code class="sig-name descname">TRIG_GET_ATR_POST</code><a class="headerlink" href="#c.TRIG_GET_ATR_POST" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_PRE_SEND_APDU_SHORT_T0">
+<code class="sig-name descname">TRIG_PRE_SEND_APDU_SHORT_T0</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_SHORT_T0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_PRE_SEND_APDU_FRAGMENTED_T0">
+<code class="sig-name descname">TRIG_PRE_SEND_APDU_FRAGMENTED_T0</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_FRAGMENTED_T0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_PRE_SEND_APDU_T1">
+<code class="sig-name descname">TRIG_PRE_SEND_APDU_T1</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_T1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_POST_RESP_T0">
+<code class="sig-name descname">TRIG_POST_RESP_T0</code><a class="headerlink" href="#c.TRIG_POST_RESP_T0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_POST_RESP_T1">
+<code class="sig-name descname">TRIG_POST_RESP_T1</code><a class="headerlink" href="#c.TRIG_POST_RESP_T1" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_SEND_APDU_FRAGMENTED_T0_PRE">
+<code class="sig-name descname">TRIG_SEND_APDU_FRAGMENTED_T0_PRE</code><a class="headerlink" href="#c.TRIG_SEND_APDU_FRAGMENTED_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_SEND_APDU_SIMPLE_T0_PRE">
+<code class="sig-name descname">TRIG_SEND_APDU_SIMPLE_T0_PRE</code><a class="headerlink" href="#c.TRIG_SEND_APDU_SIMPLE_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_GET_RESP_FRAGMENTED_T0_PRE">
+<code class="sig-name descname">TRIG_GET_RESP_FRAGMENTED_T0_PRE</code><a class="headerlink" href="#c.TRIG_GET_RESP_FRAGMENTED_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_GET_RESP_SIMPLE_T0_PRE">
+<code class="sig-name descname">TRIG_GET_RESP_SIMPLE_T0_PRE</code><a class="headerlink" href="#c.TRIG_GET_RESP_SIMPLE_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_IRG_PUTC">
+<code class="sig-name descname">TRIG_IRG_PUTC</code><a class="headerlink" href="#c.TRIG_IRG_PUTC" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_IRQ_GETC">
+<code class="sig-name descname">TRIG_IRQ_GETC</code><a class="headerlink" href="#c.TRIG_IRQ_GETC" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c macro">
+<dt id="c.TRIG_PRE_RESP_T0">
+<code class="sig-name descname">TRIG_PRE_RESP_T0</code><a class="headerlink" href="#c.TRIG_PRE_RESP_T0" title="Permalink to this definition">¶</a><br /></dt>
+<dd></dd></dl>
+
+<dl class="c struct">
+<dt id="c.trigger_strategy_t">
+<em class="property">struct </em><code class="sig-name descname">trigger_strategy_t</code><a class="headerlink" href="#c.trigger_strategy_t" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Structure which handle the buffer send to a callback, and a buffer for the response of the callback.</p>
+<blockquote>
+<div><dl class="c member">
+<dt id="c.trigger_strategy_t.size">
+uint8_t <code class="sig-name descname">size</code><a class="headerlink" href="#c.trigger_strategy_t.size" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.trigger_strategy_t.delay">
+uint32_t <code class="sig-name descname">delay</code><a class="headerlink" href="#c.trigger_strategy_t.delay" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.trigger_strategy_t.delay_cnt">
+uint32_t <code class="sig-name descname">delay_cnt</code><a class="headerlink" href="#c.trigger_strategy_t.delay_cnt" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c member">
+<dt id="c.trigger_strategy_t.list">
+uint8_t <code class="sig-name descname">list</code>[<code class="sig-name descname">TRIGGER_DEPTH</code>]<a class="headerlink" href="#c.trigger_strategy_t.list" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+</div></blockquote>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.cmp">
+<em class="property">static</em> <em class="property">inline</em> int <code class="sig-name descname">cmp</code><span class="sig-paren">(</span><a class="reference internal" href="#c.trigger_strategy_t" title="trigger_strategy_t">trigger_strategy_t</a> *<em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#c.cmp" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="c function">
+<dt id="c.trig">
+int <code class="sig-name descname">trig</code><span class="sig-paren">(</span>uint8_t <em>trign</em><span class="sig-paren">)</span><a class="headerlink" href="#c.trig" title="Permalink to this definition">¶</a><br /></dt>
+<dd><p>Record the passage point.</p>
+</dd></dl>
+
+</div>
+</div>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../api.html" class="btn btn-neutral float-right" title="6. API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../hard.html" class="btn btn-neutral float-left" title="4. Hardware" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2019-2020, ANSSI
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
