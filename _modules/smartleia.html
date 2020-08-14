@@ -273,6 +273,14 @@
 
 
 <span class="k">class</span> <span class="nc">Timers</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">        delta_t (uint32): the global delay of the command.</span>
+<span class="sd">        delta_t_answer (uint32): the delay between sending the command and getting the ACK from the card.</span>
+<span class="sd">        </span>
+<span class="sd">        NOTE: usually delta_t_answer represents the acknowledgement of the smart card (often first byte of answer), while</span>
+<span class="sd">        delta_t represents the total andwer time. Times are in microseconds.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s2">&quot;delta_t&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
@@ -1049,7 +1057,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="n">sts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ATR</span><span class="p">:</span>
+<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Timers</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the `timers` of the last command.</span>
 

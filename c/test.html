@@ -195,11 +195,11 @@
 <div class="section" id="protocol">
 <h2><span class="section-number">5.1. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
 <p>In order to communicate with LEIA, a simple communication protocol over uart is used. It permits to select a command, and execute it with specific data. The data produced by the command can finally be returned.</p>
-<p>Only one data buffer <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t</span></code></a> is used as the commands are executed one after one. As there is no need to keep trace of the result of the previous command, we can reuse the same buffer.</p>
+<p>Only one data buffer <code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t</span></code> is used as the commands are executed one after one. As there is no need to keep trace of the result of the previous command, we can reuse the same buffer.</p>
 <dl class="c macro">
 <dt id="c.COMMANDS_BUFFER_MAX_LEN">
 <code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code><a class="headerlink" href="#c.COMMANDS_BUFFER_MAX_LEN" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Constant to define the max size of the buffers used by the protocol (<a class="reference internal" href="#c.command_cb_args_t.buffer" title="command_cb_args_t.buffer"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.buffer</span></code></a> and <a class="reference internal" href="#c.command_cb_args_t.response" title="command_cb_args_t.response"><code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.response</span></code></a>).</p>
+<dd><p>Constant to define the max size of the buffers used by the protocol (<code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.buffer</span></code> and <code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t.response</span></code>).</p>
 </dd></dl>
 
 <dl class="c struct">
@@ -340,49 +340,49 @@ uint8_t <code class="sig-name descname">index</code><a class="headerlink" href="
 
 <dl class="c function">
 <dt id="c.protocol_get_timers">
-uint8_t <code class="sig-name descname">protocol_get_timers</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_timers" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_get_timers</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_timers" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to return timers values.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_send_APDU">
-uint8_t <code class="sig-name descname">protocol_send_APDU</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_send_APDU" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_send_APDU</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_send_APDU" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to process an APDU.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_configure_pts">
-uint8_t <code class="sig-name descname">protocol_configure_pts</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_configure_pts" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_configure_pts</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_configure_pts" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to configure a smartcard.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_trigger_set_strategy">
-uint8_t <code class="sig-name descname">protocol_trigger_set_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_set_strategy" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_trigger_set_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_set_strategy" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to set a trigger strategy.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_trigger_get_strategy">
-uint8_t <code class="sig-name descname">protocol_trigger_get_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_get_strategy" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_trigger_get_strategy</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_trigger_get_strategy" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to get a trigger strategy.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_is_card_inserted">
-uint8_t <code class="sig-name descname">protocol_is_card_inserted</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_is_card_inserted" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_is_card_inserted</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_is_card_inserted" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to check if the smartcard is inserted in LEIA.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_reset_card">
-uint8_t <code class="sig-name descname">protocol_reset_card</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_reset_card" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_reset_card</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_reset_card" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to reset the smartcard.</p>
 </dd></dl>
 
 <dl class="c function">
 <dt id="c.protocol_get_ATR">
-uint8_t <code class="sig-name descname">protocol_get_ATR</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, <a class="reference internal" href="#c.command_cb_args_t" title="command_cb_args_t">command_cb_args_t</a> *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_ATR" title="Permalink to this definition">¶</a><br /></dt>
+uint8_t <code class="sig-name descname">protocol_get_ATR</code><span class="sig-paren">(</span>SC_Card *<em>card</em>, command_cb_args_t *<em>args</em><span class="sig-paren">)</span><a class="headerlink" href="#c.protocol_get_ATR" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>Callback to send the ATR.</p>
 </dd></dl>
 
@@ -401,75 +401,14 @@ void <code class="sig-name descname">protocol_parse_cmd</code><span class="sig-p
 </div>
 <div class="section" id="timers">
 <h2><span class="section-number">5.2. </span>Timers<a class="headerlink" href="#timers" title="Permalink to this headline">¶</a></h2>
-<p>Blabla</p>
-<dl class="c macro">
-<dt id="c.TIMERS_DEPTH">
-<code class="sig-name descname">TIMERS_DEPTH</code><a class="headerlink" href="#c.TIMERS_DEPTH" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Constant to define the depth of a timer. TODO</p>
-</dd></dl>
-
-<dl class="c struct">
-<dt id="c.command_cb_args_t">
-<em class="property">struct </em><code class="sig-name descname">command_cb_args_t</code><a class="headerlink" href="#c.command_cb_args_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Structure which handle the buffer send to a callback, and a buffer for the response of the callback.</p>
-<blockquote>
-<div><dl class="c member">
-<dt id="c.command_cb_args_t.buffer_size">
-uint32_t <code class="sig-name descname">buffer_size</code><a class="headerlink" href="#c.command_cb_args_t.buffer_size" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Actual size of <code class="docutils literal notranslate"><span class="pre">buffer</span></code>.</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.command_cb_args_t.buffer">
-uint8_t <code class="sig-name descname">buffer</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args_t.buffer" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Buffer for the data which is send to the callback.</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.command_cb_args_t.response_size">
-uint32_t <code class="sig-name descname">response_size</code><a class="headerlink" href="#c.command_cb_args_t.response_size" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Actual size of the <code class="docutils literal notranslate"><span class="pre">response</span></code> buffer.</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.command_cb_args_t.response">
-uint8_t <code class="sig-name descname">response</code>[<code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code>]<a class="headerlink" href="#c.command_cb_args_t.response" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Buffer for the data produced by the callback.</p>
-</dd></dl>
-
-</div></blockquote>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.get_timers_params">
-int <code class="sig-name descname">get_timers_params</code><span class="sig-paren">(</span>uint8_t <em>depth</em><span class="sig-paren">)</span><a class="headerlink" href="#c.get_timers_params" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.timgers_get_times">
-int <code class="sig-name descname">timgers_get_times</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#c.timgers_get_times" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.get_cortex_m4_cycles">
-<em class="property">inline</em> unsigned int <code class="sig-name descname">get_cortex_m4_cycles</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#c.get_cortex_m4_cycles" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.platform_get_microseconds_ticks">
-<em class="property">inline</em> uint64_t <code class="sig-name descname">platform_get_microseconds_ticks</code><span class="sig-paren">(</span>void<span class="sig-paren">)</span><a class="headerlink" href="#c.platform_get_microseconds_ticks" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Return the number of cycles of the CPU.</p>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.timeit">
-int <code class="sig-name descname">timeit</code><span class="sig-paren">(</span>uint8_t <em>timen</em><span class="sig-paren">)</span><a class="headerlink" href="#c.timeit" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Increase the corresponding timer.</p>
-</dd></dl>
-
+<p>It is possible to get the timing of APDU commands (the time taken by the smart card
+to process the APDU command and send the response). We actually return two timers:
+<code class="docutils literal notranslate"><span class="pre">delta_t</span></code> and <code class="docutils literal notranslate"><span class="pre">delta_t_answer</span></code>. <code class="docutils literal notranslate"><span class="pre">delta_t</span></code> is the global time take by the response
+from the time we send the APDU until the last byte of the response. <code class="docutils literal notranslate"><span class="pre">delta_t_answer</span></code> is
+the time taken between sending the APDU and the acknowledgement of the smart card (usually
+first byte of the response).</p>
+<p>The Timers are usually sent back for every command of the protocol in the response, with
+zero values when timing such commands has no sense.</p>
 </div>
 <div class="section" id="triggers">
 <h2><span class="section-number">5.3. </span>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
