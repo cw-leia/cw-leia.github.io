@@ -285,6 +285,30 @@
 </dd></dl>
 
 <dl class="py class">
+<dt id="smartleia.Timers">
+<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">Timers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delta_t</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delta_t_answer</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#Timers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.Timers" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Variables</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta_t</strong> (<em>uint32</em>) – the global delay of the command.</p></li>
+<li><p><strong>delta_t_answer</strong> (<em>uint32</em>) – the delay between sending the command and getting the ACK from the card.</p></li>
+<li><p><strong>NOTE</strong> – usually delta_t_answer represents the acknowledgement of the smart card (often first byte of answer), while</p></li>
+<li><p><strong>represents the total andwer time. Times are in microseconds.</strong> (<em>delta_t</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<p>Create a Timers structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>delta_t</strong> (<em>int</em>) – total time for the APDU.</p></li>
+<li><p><strong>delta_t_answer</strong> (<em>int</em>) – answer time for the APDU.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py class">
 <dt id="smartleia.Triggers">
 <em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">Triggers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#Triggers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.Triggers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
@@ -512,7 +536,7 @@ It is possible to:</p>
 <dd class="field-odd"><p>The <cite>Timer</cite> object.</p>
 </dd>
 <dt class="field-even">Return type</dt>
-<dd class="field-even"><p>Timers</p>
+<dd class="field-even"><p><a class="reference internal" href="#smartleia.Timers" title="smartleia.Timers">Timers</a></p>
 </dd>
 </dl>
 </dd></dl>

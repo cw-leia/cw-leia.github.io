@@ -175,6 +175,7 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;TriggerPoints&quot;</span><span class="p">,</span>
     <span class="s2">&quot;T&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Timers&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Triggers&quot;</span><span class="p">,</span>
     <span class="s2">&quot;TriggerStrategy&quot;</span><span class="p">,</span>
     <span class="s2">&quot;create_APDU_from_bytes&quot;</span><span class="p">,</span>
@@ -193,9 +194,13 @@
 <span class="n">RESPONSE_LEN_SIZE</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">TRIGGER_DEPTH</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">STRATEGY_MAX</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="c1"># Maximum size of APDU payload size</span>
-<span class="c1"># NOTE: because of firmware SRAM constraints, we only</span>
-<span class="c1"># support this size for now.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd"> Maximum size of APDU payload size is MAX_APDU_PAYLOAD_SIZE = 16384</span>
+<span class="sd"> This will limit extended APDUs to this size instead of normative 65kB. Supporting</span>
+<span class="sd"> the normative size is a future work.</span>
+<span class="sd"> NOTE: because of firmware SRAM constraints, we only</span>
+<span class="sd"> support this size for now.</span>
+<span class="sd">&quot;&quot;&quot;</span>
 <span class="n">MAX_APDU_PAYLOAD_SIZE</span> <span class="o">=</span> <span class="mi">16384</span>
 
 <span class="n">ERR_FLAGS</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x00</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">:</span> <span class="s2">&quot;PLATFORM_ERR_CARD_NOT_INSERTED&quot;</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">:</span> <span class="s2">&quot;UNKNOWN_ERROR&quot;</span><span class="p">}</span>
@@ -272,7 +277,7 @@
     <span class="n">TRIG_IRQ_GETC</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">9</span></div>
 
 
-<span class="k">class</span> <span class="nc">Timers</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
+<div class="viewcode-block" id="Timers"><a class="viewcode-back" href="../api.html#smartleia.Timers">[docs]</a><span class="k">class</span> <span class="nc">Timers</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes:</span>
 <span class="sd">        delta_t (uint32): the global delay of the command.</span>
@@ -302,7 +307,7 @@
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Timers(</span>
 <span class="s2">        delta_t=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
 <span class="s2">        delta_t_answer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t_answer</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
-<span class="s2">        )&quot;&quot;&quot;</span>
+<span class="s2">        )&quot;&quot;&quot;</span></div>
  
 
 <div class="viewcode-block" id="Triggers"><a class="viewcode-back" href="../api.html#smartleia.Triggers">[docs]</a><span class="k">class</span> <span class="nc">Triggers</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
