@@ -493,11 +493,20 @@ half duplex line.</p>
 <p>This trigger is placed each time a byte is received from the smart card on the ISO7816-3
 half duplex line.</p>
 <p>Configuring a trigger is quite simple in Python using the <code class="xref c c-type docutils literal notranslate"><span class="pre">set_trigger_strategy</span></code> function:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>import smartleia as sl
+<span class="nv">reader</span> <span class="o">=</span> sl.LEIA<span class="o">(</span><span class="s1">&#39;/dev/ttyACM1&#39;</span><span class="o">)</span>
+reader.set_trigger_strategy<span class="o">(</span><span class="m">0</span>, <span class="o">[</span>sl.TriggerPoints.TRIG_GET_ATR_PRE, sl.TriggerPoints.TRIG_GET_ATR_POST, sl.TriggerPoints.TRIG_PRE_SEND_APDU_T1<span class="o">]</span>, <span class="nv">delay</span><span class="o">=</span><span class="m">0</span>, <span class="nv">single</span><span class="o">=</span><span class="m">0</span><span class="o">)</span>
+</pre></div>
+</div>
 <p>This sets up the trigging strategy at index 0 with three events: <a class="reference internal" href="#c.TRIG_GET_ATR_PRE" title="TRIG_GET_ATR_PRE"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_PRE</span></code></a>, <a class="reference internal" href="#c.TRIG_GET_ATR_POST" title="TRIG_GET_ATR_POST"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_POST</span></code></a> and <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_T1" title="TRIG_PRE_SEND_APDU_T1"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_T1</span></code></a>, with a
 0 milliseconds delay and a permanent (not single) trigging style.</p>
 <p>There are 4 possible strategies (index from 0 to 3) with a maximum of 10 events per strategy. The delay in milliseconds puts an offset in the
 time the trigger happens.</p>
 <p>At any time, it is possible to get the strategies states using <code class="xref c c-type docutils literal notranslate"><span class="pre">get_trigger_strategy(index)</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">strat1</span> <span class="o">=</span> reader.get_trigger_strategy<span class="o">(</span><span class="m">0</span><span class="o">)</span>
+TriggerStrategy<span class="o">(</span><span class="nv">single</span><span class="o">=</span><span class="m">0</span>, <span class="nv">delay</span><span class="o">=</span><span class="m">0</span>, <span class="nv">point_list</span><span class="o">=[</span>&lt;TriggerPoints.TRIG_GET_ATR_PRE: <span class="m">1</span>&gt;, &lt;TriggerPoints.TRIG_GET_ATR_POST: <span class="m">2</span>&gt;, &lt;TriggerPoints.TRIG_PRE_SEND_APDU_T1: <span class="m">16</span>&gt;<span class="o">]</span>, <span class="nv">point_list_trigged</span><span class="o">=[</span>&lt;TriggerPoints.TRIG_GET_ATR_PRE: <span class="m">1</span>&gt;, &lt;TriggerPoints.TRIG_GET_ATR_POST: <span class="m">2</span>&gt;, &lt;TriggerPoints.TRIG_PRE_SEND_APDU_T1: <span class="m">16</span>&gt;<span class="o">]</span>, <span class="nv">cnt_list_trigged</span><span class="o">=[</span><span class="m">1</span>, <span class="m">1</span>, <span class="m">3</span><span class="o">]</span>, <span class="nv">event_time</span><span class="o">=[</span><span class="m">415121</span>, <span class="m">429329</span>, <span class="m">3038120</span><span class="o">])</span>
+</pre></div>
+</div>
 <p>The <code class="xref c c-type docutils literal notranslate"><span class="pre">point_list_trigged</span></code> list gives the events that have been triggered, the <code class="xref c c-type docutils literal notranslate"><span class="pre">point_list_trigged</span></code> list provides counters of how many times each event
 has been triggered, and the <code class="xref c c-type docutils literal notranslate"><span class="pre">event_time</span></code> shows an absolute time (using the reader internal clock) of when the last trigger of each event happened.</p>
 </div>
