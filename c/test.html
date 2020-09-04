@@ -32,7 +32,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script src="http://wavedrom.com/skins/default.js"></script>
-        <script src="http://wavedrom.com/WaveDrom.js"></script>
+        <script src="http://wavedrom.com/wavedrom.min.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -194,8 +194,8 @@
 <span id="c-test"></span><h1><span class="section-number">5. </span>Firmware Doc<a class="headerlink" href="#firmware-doc" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="protocol">
 <h2><span class="section-number">5.1. </span>Protocol<a class="headerlink" href="#protocol" title="Permalink to this headline">¶</a></h2>
-<p>In order to communicate with LEIA, a simple communication protocol over uart is used. It permits to select a command, and execute it with specific data. The data produced by the command can finally be returned.</p>
-<p>Only one data buffer <code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t</span></code> is used as the commands are executed one after one. As there is no need to keep trace of the result of the previous command, we can reuse the same buffer.</p>
+<p>In order to communicate with LEIA, a simple communication protocol over uart is used. It allows to select a command, and execute it with specific data. The data produced by the command can finally be returned.</p>
+<p>Only one data buffer <code class="xref c c-type docutils literal notranslate"><span class="pre">command_cb_args_t</span></code> is used as the commands are executed one after the other in a sequential fashion. As there is no need to keep track of the result of the previous command, we can reuse the same buffer. The maximum size of our APDU payloads is 16384, and is mainly due to maximum buffers size in the MCU SRAM.</p>
 <dl class="c macro">
 <dt id="c.COMMANDS_BUFFER_MAX_LEN">
 <code class="sig-name descname">COMMANDS_BUFFER_MAX_LEN</code><a class="headerlink" href="#c.COMMANDS_BUFFER_MAX_LEN" title="Permalink to this definition">¶</a><br /></dt>
@@ -332,7 +332,7 @@ uint8_t <code class="sig-name descname">index</code><a class="headerlink" href="
 
 <dl class="c member">
 <dt id="c.protocol_config_trigger_set_t.strategy">
-<a class="reference internal" href="#c.trigger_strategy_t" title="trigger_strategy_t">trigger_strategy_t</a> <code class="sig-name descname">strategy</code><a class="headerlink" href="#c.protocol_config_trigger_set_t.strategy" title="Permalink to this definition">¶</a><br /></dt>
+trigger_strategy_t <code class="sig-name descname">strategy</code><a class="headerlink" href="#c.protocol_config_trigger_set_t.strategy" title="Permalink to this definition">¶</a><br /></dt>
 <dd><p>The strategy to save.</p>
 </dd></dl>
 
@@ -412,130 +412,100 @@ zero values when timing such commands has no sense.</p>
 </div>
 <div class="section" id="triggers">
 <h2><span class="section-number">5.3. </span>Triggers<a class="headerlink" href="#triggers" title="Permalink to this headline">¶</a></h2>
-<dl class="c macro">
-<dt id="c.TRIGGER_DEPTH">
-<code class="sig-name descname">TRIGGER_DEPTH</code><a class="headerlink" href="#c.TRIGGER_DEPTH" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="c macro">
-<dt id="c.STRATEGY_MAX">
-<code class="sig-name descname">STRATEGY_MAX</code><a class="headerlink" href="#c.STRATEGY_MAX" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
+<p>On LEIA, there is a triggers handling mode where a dedicated PIN is put high and
+then low on some events. Actually, two PINs are used for triggers: an internal trigger
+dedicated to the LEIA board, and a ChipWhisperer trigger on the 20-pins connector
+to allow compatibility with the CW ecosystem.</p>
+<p>The events on which we can configure a trigger are mainly related to ISO7816-3 steps.
+For instance, we can ask for a trigger just before the ATR (Answer To Reset)
+of the smart card with <a class="reference internal" href="#c.TRIG_GET_ATR_PRE" title="TRIG_GET_ATR_PRE"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_PRE</span></code></a>, just after this ATR reception with
+<a class="reference internal" href="#c.TRIG_GET_ATR_POST" title="TRIG_GET_ATR_POST"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_POST</span></code></a>, etc. The list of events for which a trigger exists are the following:</p>
 <dl class="c macro">
 <dt id="c.TRIG_GET_ATR_PRE">
 <code class="sig-name descname">TRIG_GET_ATR_PRE</code><a class="headerlink" href="#c.TRIG_GET_ATR_PRE" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the beginning of the ATR reception.</p>
 <dl class="c macro">
 <dt id="c.TRIG_GET_ATR_POST">
 <code class="sig-name descname">TRIG_GET_ATR_POST</code><a class="headerlink" href="#c.TRIG_GET_ATR_POST" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the end of the ATR reception.</p>
 <dl class="c macro">
 <dt id="c.TRIG_PRE_SEND_APDU_SHORT_T0">
 <code class="sig-name descname">TRIG_PRE_SEND_APDU_SHORT_T0</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_SHORT_T0" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the beginning of T=0 short APDU send command.</p>
 <dl class="c macro">
 <dt id="c.TRIG_PRE_SEND_APDU_FRAGMENTED_T0">
 <code class="sig-name descname">TRIG_PRE_SEND_APDU_FRAGMENTED_T0</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_FRAGMENTED_T0" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the beginning of T=0 fragmented (extended and case 4) APDU send
+command.</p>
 <dl class="c macro">
 <dt id="c.TRIG_PRE_SEND_APDU_T1">
 <code class="sig-name descname">TRIG_PRE_SEND_APDU_T1</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU_T1" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the beginning of T=1 APDU send command.</p>
 <dl class="c macro">
 <dt id="c.TRIG_POST_RESP_T0">
 <code class="sig-name descname">TRIG_POST_RESP_T0</code><a class="headerlink" href="#c.TRIG_POST_RESP_T0" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the end of T=0 response coming from the smart card.</p>
 <dl class="c macro">
 <dt id="c.TRIG_POST_RESP_T1">
 <code class="sig-name descname">TRIG_POST_RESP_T1</code><a class="headerlink" href="#c.TRIG_POST_RESP_T1" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the end of T=1 response coming from the smart card.</p>
 <dl class="c macro">
-<dt id="c.TRIG_SEND_APDU_FRAGMENTED_T0_PRE">
-<code class="sig-name descname">TRIG_SEND_APDU_FRAGMENTED_T0_PRE</code><a class="headerlink" href="#c.TRIG_SEND_APDU_FRAGMENTED_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.TRIG_PRE_SEND_APDU">
+<code class="sig-name descname">TRIG_PRE_SEND_APDU</code><a class="headerlink" href="#c.TRIG_PRE_SEND_APDU" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the beginning of APDU send command (either T=0 or T=1,
+this is an abstraction for <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_SHORT_T0" title="TRIG_PRE_SEND_APDU_SHORT_T0"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_SHORT_T0</span></code></a> or <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_FRAGMENTED_T0" title="TRIG_PRE_SEND_APDU_FRAGMENTED_T0"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_FRAGMENTED_T0</span></code></a>
+or <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_T1" title="TRIG_PRE_SEND_APDU_T1"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_T1</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.TRIG_SEND_APDU_SIMPLE_T0_PRE">
-<code class="sig-name descname">TRIG_SEND_APDU_SIMPLE_T0_PRE</code><a class="headerlink" href="#c.TRIG_SEND_APDU_SIMPLE_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.TRIG_POST_RESP">
+<code class="sig-name descname">TRIG_POST_RESP</code><a class="headerlink" href="#c.TRIG_POST_RESP" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
+<p>This trigger is placed at the end of response coming from the smart card (either in
+T=0 or T=1). This is an abstraction for <a class="reference internal" href="#c.TRIG_POST_RESP_T0" title="TRIG_POST_RESP_T0"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_POST_RESP_T0</span></code></a> or <a class="reference internal" href="#c.TRIG_POST_RESP_T1" title="TRIG_POST_RESP_T1"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_POST_RESP_T1</span></code></a>.</p>
 <dl class="c macro">
-<dt id="c.TRIG_GET_RESP_FRAGMENTED_T0_PRE">
-<code class="sig-name descname">TRIG_GET_RESP_FRAGMENTED_T0_PRE</code><a class="headerlink" href="#c.TRIG_GET_RESP_FRAGMENTED_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
+<dt id="c.TRIG_IRQ_PUTC">
+<code class="sig-name descname">TRIG_IRQ_PUTC</code><a class="headerlink" href="#c.TRIG_IRQ_PUTC" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
-<dl class="c macro">
-<dt id="c.TRIG_GET_RESP_SIMPLE_T0_PRE">
-<code class="sig-name descname">TRIG_GET_RESP_SIMPLE_T0_PRE</code><a class="headerlink" href="#c.TRIG_GET_RESP_SIMPLE_T0_PRE" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="c macro">
-<dt id="c.TRIG_IRG_PUTC">
-<code class="sig-name descname">TRIG_IRG_PUTC</code><a class="headerlink" href="#c.TRIG_IRG_PUTC" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
+<p>This trigger is placed each time a byte is sent to the smart card on the ISO7816-3
+half duplex line.</p>
 <dl class="c macro">
 <dt id="c.TRIG_IRQ_GETC">
 <code class="sig-name descname">TRIG_IRQ_GETC</code><a class="headerlink" href="#c.TRIG_IRQ_GETC" title="Permalink to this definition">¶</a><br /></dt>
 <dd></dd></dl>
 
-<dl class="c macro">
-<dt id="c.TRIG_PRE_RESP_T0">
-<code class="sig-name descname">TRIG_PRE_RESP_T0</code><a class="headerlink" href="#c.TRIG_PRE_RESP_T0" title="Permalink to this definition">¶</a><br /></dt>
-<dd></dd></dl>
-
-<dl class="c struct">
-<dt id="c.trigger_strategy_t">
-<em class="property">struct </em><code class="sig-name descname">trigger_strategy_t</code><a class="headerlink" href="#c.trigger_strategy_t" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Structure which handle the buffer send to a callback, and a buffer for the response of the callback.</p>
+<p>This trigger is placed each time a byte is received from the smart card on the ISO7816-3
+half duplex line.</p>
+<p>Configuring a trigger is quite simple in Python using the <code class="xref c c-type docutils literal notranslate"><span class="pre">set_trigger_strategy</span></code> function:
+.. code:: python</p>
 <blockquote>
-<div><dl class="c member">
-<dt id="c.trigger_strategy_t.size">
-uint8_t <code class="sig-name descname">size</code><a class="headerlink" href="#c.trigger_strategy_t.size" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.trigger_strategy_t.delay">
-uint32_t <code class="sig-name descname">delay</code><a class="headerlink" href="#c.trigger_strategy_t.delay" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.trigger_strategy_t.delay_cnt">
-uint32_t <code class="sig-name descname">delay_cnt</code><a class="headerlink" href="#c.trigger_strategy_t.delay_cnt" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c member">
-<dt id="c.trigger_strategy_t.list">
-uint8_t <code class="sig-name descname">list</code>[<code class="sig-name descname">TRIGGER_DEPTH</code>]<a class="headerlink" href="#c.trigger_strategy_t.list" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
+<div><p>import smartleia as sl
+reader = sl.LEIA(‘/dev/ttyACM1’)
+reader.set_trigger_strategy(0, [sl.TriggerPoints.TRIG_GET_ATR_PRE, sl.TriggerPoints.TRIG_GET_ATR_POST, sl.TriggerPoints.TRIG_PRE_SEND_APDU_T1], delay=0, single=0)</p>
 </div></blockquote>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.cmp">
-<em class="property">static</em> <em class="property">inline</em> int <code class="sig-name descname">cmp</code><span class="sig-paren">(</span><a class="reference internal" href="#c.trigger_strategy_t" title="trigger_strategy_t">trigger_strategy_t</a> *<em>s</em><span class="sig-paren">)</span><a class="headerlink" href="#c.cmp" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>TODO</p>
-</dd></dl>
-
-<dl class="c function">
-<dt id="c.trig">
-int <code class="sig-name descname">trig</code><span class="sig-paren">(</span>uint8_t <em>trign</em><span class="sig-paren">)</span><a class="headerlink" href="#c.trig" title="Permalink to this definition">¶</a><br /></dt>
-<dd><p>Record the passage point.</p>
-</dd></dl>
-
+<p>This sets up the trigging strategy at index 0 with three events: <a class="reference internal" href="#c.TRIG_GET_ATR_PRE" title="TRIG_GET_ATR_PRE"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_PRE</span></code></a>, <a class="reference internal" href="#c.TRIG_GET_ATR_POST" title="TRIG_GET_ATR_POST"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_POST</span></code></a> and <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_T1" title="TRIG_PRE_SEND_APDU_T1"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_T1</span></code></a>, with a
+0 milliseconds delay and a permanent (not single) trigging style.</p>
+<p>There are 4 possible strategies (index from 0 to 3) with a maximum of 10 events per strategy. The delay in milliseconds puts an offset in the
+time the trigger happens.</p>
+<p>At any time, it is possible to get the strategies states using <code class="xref c c-type docutils literal notranslate"><span class="pre">get_trigger_strategy(index)</span></code>:</p>
+<p>The <code class="xref c c-type docutils literal notranslate"><span class="pre">point_list_trigged</span></code> list gives the events that have been triggered, the <code class="xref c c-type docutils literal notranslate"><span class="pre">point_list_trigged</span></code> list provides counters of how many times each event
+has been triggered, and the <code class="xref c c-type docutils literal notranslate"><span class="pre">event_time</span></code> shows an absolute time (using the reader internal clock) of when the last trigger of each event happened.</p>
 </div>
 </div>
 

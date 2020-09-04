@@ -32,7 +32,7 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/language_data.js"></script>
         <script src="http://wavedrom.com/skins/default.js"></script>
-        <script src="http://wavedrom.com/WaveDrom.js"></script>
+        <script src="http://wavedrom.com/wavedrom.min.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
@@ -175,7 +175,6 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;TriggerPoints&quot;</span><span class="p">,</span>
     <span class="s2">&quot;T&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;Timers&quot;</span><span class="p">,</span>
     <span class="s2">&quot;Triggers&quot;</span><span class="p">,</span>
     <span class="s2">&quot;TriggerStrategy&quot;</span><span class="p">,</span>
     <span class="s2">&quot;create_APDU_from_bytes&quot;</span><span class="p">,</span>
@@ -194,13 +193,9 @@
 <span class="n">RESPONSE_LEN_SIZE</span> <span class="o">=</span> <span class="mi">4</span>
 <span class="n">TRIGGER_DEPTH</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">STRATEGY_MAX</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="sd"> Maximum size of APDU payload size is MAX_APDU_PAYLOAD_SIZE = 16384</span>
-<span class="sd"> This will limit extended APDUs to this size instead of normative 65kB. Supporting</span>
-<span class="sd"> the normative size is a future work.</span>
-<span class="sd"> NOTE: because of firmware SRAM constraints, we only</span>
-<span class="sd"> support this size for now.</span>
-<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># Maximum size of APDU payload size</span>
+<span class="c1"># NOTE: because of firmware SRAM constraints, we only</span>
+<span class="c1"># support this size for now.</span>
 <span class="n">MAX_APDU_PAYLOAD_SIZE</span> <span class="o">=</span> <span class="mi">16384</span>
 
 <span class="n">ERR_FLAGS</span> <span class="o">=</span> <span class="p">{</span><span class="mh">0x00</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span><span class="p">,</span> <span class="mh">0x01</span><span class="p">:</span> <span class="s2">&quot;PLATFORM_ERR_CARD_NOT_INSERTED&quot;</span><span class="p">,</span> <span class="mh">0xFF</span><span class="p">:</span> <span class="s2">&quot;UNKNOWN_ERROR&quot;</span><span class="p">}</span>
@@ -234,6 +229,31 @@
     <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">)]</span>
 
 
+<span class="k">class</span> <span class="nc">Timers</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
+    <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;delta_t&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;delta_t_answer&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Create a Timers structure.</span>
+
+<span class="sd">        Parameters:</span>
+<span class="sd">            delta_t (int) : total time for the APDU.</span>
+<span class="sd">            delta_t_answer (int) : answer time for the APDU.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">LEIAStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Timers(</span>
+<span class="s2">        delta_t=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
+<span class="s2">        delta_t_answer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t_answer</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
+<span class="s2">        )&quot;&quot;&quot;</span>
+ 
+<span class="c1">##### Triggers handling ######</span>
 <div class="viewcode-block" id="TriggerPoints"><a class="viewcode-back" href="../api.html#smartleia.TriggerPoints">[docs]</a><span class="k">class</span> <span class="nc">TriggerPoints</span><span class="p">(</span><span class="n">IntFlag</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Class utility to reference the trigger points available.</span>
@@ -277,52 +297,28 @@
     <span class="n">TRIG_IRQ_GETC</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">9</span></div>
 
 
-<div class="viewcode-block" id="Timers"><a class="viewcode-back" href="../api.html#smartleia.Timers">[docs]</a><span class="k">class</span> <span class="nc">Timers</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Attributes:</span>
-<span class="sd">        delta_t (uint32): the global delay of the command.</span>
-<span class="sd">        delta_t_answer (uint32): the delay between sending the command and getting the ACK from the card.</span>
-<span class="sd">        </span>
-<span class="sd">        NOTE: usually delta_t_answer represents the acknowledgement of the smart card (often first byte of answer), while</span>
-<span class="sd">        delta_t represents the total andwer time. Times are in microseconds.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">(</span><span class="s2">&quot;delta_t&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;delta_t_answer&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
-    <span class="p">]</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Create a Timers structure.</span>
-
-<span class="sd">        Parameters:</span>
-<span class="sd">            delta_t (int) : total time for the APDU.</span>
-<span class="sd">            delta_t_answer (int) : answer time for the APDU.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">LEIAStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delta_t</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">delta_t_answer</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Timers(</span>
-<span class="s2">        delta_t=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
-<span class="s2">        delta_t_answer=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delta_t_answer</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> microseconds,</span>
-<span class="s2">        )&quot;&quot;&quot;</span></div>
- 
-
 <div class="viewcode-block" id="Triggers"><a class="viewcode-back" href="../api.html#smartleia.Triggers">[docs]</a><span class="k">class</span> <span class="nc">Triggers</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
-
-    <span class="c1">#: Triggers after the first byte of an APDU has been sent.</span>
-    <span class="n">TRIG_AFTER_1ST_BYTE_SEND_APDU</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="c1"># NOTE: you can improve your trigger strategies here by adding new ones</span>
+    <span class="c1"># or existing ones!</span>
+    <span class="c1">#: Triggers at the beginning and end of ATR: first trig just before</span>
+    <span class="c1"># reading ATR, second trig after we have got the ATR</span>
+    <span class="n">MULTI_TRIG_ATR</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_GET_ATR_PRE</span><span class="p">,</span>
+        <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_GET_ATR_POST</span><span class="p">,</span>
+    <span class="p">]</span>
+    <span class="c1">#: Triggers after the first byte of an APDU has been sent: first trig</span>
+    <span class="c1"># just after we have sent our APDU command, second trig when receiving</span>
+    <span class="c1"># the first response byte from the card.</span>
+    <span class="n">MULTI_TRIG_AFTER_1ST_BYTE_SEND_APDU</span> <span class="o">=</span> <span class="p">[</span>
         <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_PRE_SEND_APDU</span><span class="p">,</span>
         <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_IRQ_PUTC</span><span class="p">,</span>
     <span class="p">]</span></div>
-
+    
 
 <div class="viewcode-block" id="TriggerStrategy"><a class="viewcode-back" href="../api.html#smartleia.TriggerStrategy">[docs]</a><span class="k">class</span> <span class="nc">TriggerStrategy</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Attributes:</span>
-<span class="sd">        delay (int): the delay between event detection and effective trig on GPIO.</span>
+<span class="sd">        delay (int): the delay between event detection and effective trig on GPIO in milliseconds.</span>
 <span class="sd">        point_list (list[int]): the list of events to match.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -330,15 +326,19 @@
     <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>
         <span class="p">(</span><span class="s2">&quot;size&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">&quot;delay&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
-        <span class="p">(</span><span class="s2">&quot;delay_cnt&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;single&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">&quot;_list&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span> <span class="o">*</span> <span class="n">TRIGGER_DEPTH</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_list_trigged&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span> <span class="o">*</span> <span class="n">TRIGGER_DEPTH</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_cnt_trigged&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span> <span class="o">*</span> <span class="n">TRIGGER_DEPTH</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_event_time&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span> <span class="o">*</span> <span class="n">TRIGGER_DEPTH</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;_apply_delay&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint32</span> <span class="o">*</span> <span class="n">TRIGGER_DEPTH</span><span class="p">),</span>
     <span class="p">]</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">single</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">point_list</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">point_list</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">point_list</span> <span class="o">=</span> <span class="p">[]</span>
 
-        <span class="n">LEIAStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">,</span> <span class="n">delay_cnt</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="n">LEIAStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">delay</span><span class="o">=</span><span class="n">delay</span><span class="p">,</span> <span class="n">single</span><span class="o">=</span><span class="n">single</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">point_list</span> <span class="o">=</span> <span class="n">point_list</span>
 
     <span class="k">def</span> <span class="nf">_translate_point_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">point_list</span><span class="p">):</span>
@@ -348,7 +348,7 @@
         <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">point</span><span class="p">:</span> <span class="n">TriggerPoints</span><span class="p">(</span><span class="n">point</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="n">point_list</span><span class="p">))</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;TriggerStrategy(delay=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="si">}</span><span class="s2">, point_list=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">point_list</span><span class="si">}</span><span class="s2">)&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;TriggerStrategy(single=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">single</span><span class="si">}</span><span class="s2">, delay=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">delay</span><span class="si">}</span><span class="s2">, point_list=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">point_list</span><span class="si">}</span><span class="s2">, point_list_trigged=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">point_list_trigged</span><span class="si">}</span><span class="s2">, cnt_list_trigged=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt_list_trigged</span><span class="si">}</span><span class="s2">, event_time=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">event_time_list</span><span class="si">}</span><span class="s2">)&quot;</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">point_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -370,12 +370,35 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Size of data too high&quot;</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">point_list_trigged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_point_list_trigged</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_list_trigged</span><span class="p">)[</span><span class="mi">0</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">Triggers</span><span class="p">(</span><span class="n">_point_list_trigged</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:</span> <span class="n">TriggerPoints</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">_point_list_trigged</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">r</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">cnt_list_trigged</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_cnt_list_trigged</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_cnt_trigged</span><span class="p">)[</span><span class="mi">0</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">_cnt_list_trigged</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">event_time_list</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">_event_time_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_event_time</span><span class="p">)[</span><span class="mi">0</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">_event_time_list</span></div>
+
 
 
 <span class="k">class</span> <span class="nc">SetTriggerStrategy</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
     <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">_fields</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;strategy&quot;</span><span class="p">,</span> <span class="n">TriggerStrategy</span><span class="p">)]</span>
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;index&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;strategy&quot;</span><span class="p">,</span> <span class="n">TriggerStrategy</span><span class="p">)]</span>
 
     <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;SetTriggerStrategy(index=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="si">}</span><span class="s2">, strategy=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">strategy</span><span class="si">}</span><span class="s2">)&quot;</span>
@@ -1026,6 +1049,9 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">SID</span> <span class="o">&gt;=</span> <span class="n">STRATEGY_MAX</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;get_trigger_strategy: asked SID=</span><span class="si">%d</span><span class="s2"> exceeds STRATEGY_MAX=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SID</span><span class="p">,</span> <span class="n">STRATEGY_MAX</span><span class="p">))</span>
+           
             <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">ByteStruct</span><span class="p">(</span><span class="n">SID</span><span class="p">))</span>
 
             <span class="n">r_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_response_size</span><span class="p">()</span>
@@ -1034,7 +1060,7 @@
         <span class="k">return</span> <span class="n">r</span></div>
 
 <div class="viewcode-block" id="LEIA.set_trigger_strategy"><a class="viewcode-back" href="../api.html#smartleia.LEIA.set_trigger_strategy">[docs]</a>    <span class="k">def</span> <span class="nf">set_trigger_strategy</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span> <span class="n">SID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">point_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="p">,</span> <span class="n">SID</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">point_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">delay</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">single</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set and activate a trigger strategy.</span>
@@ -1042,27 +1068,24 @@
 <span class="sd">        Parameters:</span>
 <span class="sd">            SID: the strategy bank ID to use.</span>
 <span class="sd">            point_list: the sequence to match for the trigger.</span>
-<span class="sd">            delay: the delay between the moment of the detection and the moment where the trigger is actually set high.</span>
+<span class="sd">            delay: the delay (in milliseconds) between the moment of the detection and the moment where the trigger is actually set high.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">SID</span> <span class="o">&gt;=</span> <span class="n">STRATEGY_MAX</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;get_trigger_strategy: asked SID=</span><span class="si">%d</span><span class="s2"> exceeds STRATEGY_MAX=</span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SID</span><span class="p">,</span> <span class="n">STRATEGY_MAX</span><span class="p">))</span>
+
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">point_list</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
                 <span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
                 <span class="n">point_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">point_list</span><span class="p">]</span>
 
             <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">point_list</span><span class="p">)</span>
 
-            <span class="n">sts</span> <span class="o">=</span> <span class="n">SetTriggerStrategy</span><span class="p">()</span>
-            <span class="n">sts</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">SID</span>
-            <span class="n">sts</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span>
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">size</span><span class="p">):</span>
-                <span class="n">sts</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">point_list</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-
-            <span class="n">sts</span><span class="o">.</span><span class="n">strategy</span><span class="o">.</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span>
+            <span class="n">sts</span> <span class="o">=</span> <span class="n">SetTriggerStrategy</span><span class="p">(</span><span class="n">SID</span><span class="p">,</span> <span class="n">TriggerStrategy</span><span class="p">(</span><span class="n">delay</span> <span class="o">=</span> <span class="n">delay</span><span class="p">,</span> <span class="n">single</span> <span class="o">=</span> <span class="n">single</span><span class="p">,</span> <span class="n">point_list</span> <span class="o">=</span> <span class="n">point_list</span><span class="p">))</span>
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="n">sts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Timers</span><span class="p">:</span>
+<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ATR</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the `timers` of the last command.</span>
 
