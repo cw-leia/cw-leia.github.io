@@ -492,13 +492,7 @@ half duplex line.</p>
 
 <p>This trigger is placed each time a byte is received from the smart card on the ISO7816-3
 half duplex line.</p>
-<p>Configuring a trigger is quite simple in Python using the <code class="xref c c-type docutils literal notranslate"><span class="pre">set_trigger_strategy</span></code> function:
-.. code:: python</p>
-<blockquote>
-<div><p>import smartleia as sl
-reader = sl.LEIA(‘/dev/ttyACM1’)
-reader.set_trigger_strategy(0, [sl.TriggerPoints.TRIG_GET_ATR_PRE, sl.TriggerPoints.TRIG_GET_ATR_POST, sl.TriggerPoints.TRIG_PRE_SEND_APDU_T1], delay=0, single=0)</p>
-</div></blockquote>
+<p>Configuring a trigger is quite simple in Python using the <code class="xref c c-type docutils literal notranslate"><span class="pre">set_trigger_strategy</span></code> function:</p>
 <p>This sets up the trigging strategy at index 0 with three events: <a class="reference internal" href="#c.TRIG_GET_ATR_PRE" title="TRIG_GET_ATR_PRE"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_PRE</span></code></a>, <a class="reference internal" href="#c.TRIG_GET_ATR_POST" title="TRIG_GET_ATR_POST"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_GET_ATR_POST</span></code></a> and <a class="reference internal" href="#c.TRIG_PRE_SEND_APDU_T1" title="TRIG_PRE_SEND_APDU_T1"><code class="xref c c-type docutils literal notranslate"><span class="pre">TRIG_PRE_SEND_APDU_T1</span></code></a>, with a
 0 milliseconds delay and a permanent (not single) trigging style.</p>
 <p>There are 4 possible strategies (index from 0 to 3) with a maximum of 10 events per strategy. The delay in milliseconds puts an offset in the
