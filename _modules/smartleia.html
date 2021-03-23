@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>smartleia &mdash; LEIA 0.2.2 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/language_data.js"></script>
         <script src="http://wavedrom.com/skins/default.js"></script>
         <script src="http://wavedrom.com/wavedrom.min.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -53,7 +55,7 @@
           
 
           
-            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> LEIA
+            <a href="../index.html" class="icon icon-home"> LEIA
           
 
           
@@ -134,6 +136,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -184,7 +188,7 @@
     <span class="s2">&quot;LEIA&quot;</span><span class="p">,</span>
 <span class="p">]</span>
 
-<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.0&quot;</span>
+<span class="n">__version__</span> <span class="o">=</span> <span class="s2">&quot;1.0.1&quot;</span>
 
 <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;smartleia&quot;</span>
 
@@ -306,7 +310,7 @@
         <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_GET_ATR_PRE</span><span class="p">,</span>
         <span class="n">TriggerPoints</span><span class="o">.</span><span class="n">TRIG_GET_ATR_POST</span><span class="p">,</span>
     <span class="p">]</span>
-    <span class="c1">#: Triggers after the first byte of an APDU has been sent: first trig</span>
+    <span class="c1"># Triggers after the first byte of an APDU has been sent: first trig</span>
     <span class="c1"># just after we have sent our APDU command, second trig when receiving</span>
     <span class="c1"># the first response byte from the card.</span>
     <span class="n">MULTI_TRIG_AFTER_1ST_BYTE_SEND_APDU</span> <span class="o">=</span> <span class="p">[</span>
@@ -770,6 +774,32 @@
     <span class="c1">#: The protocol is T=1</span>
     <span class="n">T1</span> <span class="o">=</span> <span class="mi">1</span></div>
 
+<span class="k">class</span> <span class="nc">Mode</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ISO7816 mode selection.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+   
+    <span class="c1"># USART mode</span>
+    <span class="n">USART</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Bitbang mode</span>
+    <span class="n">BITBANG</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">class</span> <span class="nc">LEIAMode</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
+    <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">_fields_</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="p">(</span><span class="s2">&quot;mode&quot;</span><span class="p">,</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">c_uint8</span><span class="p">),</span>
+    <span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">mode</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="n">LEIAStructure</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
+        <span class="p">)</span>
+
 
 <span class="k">class</span> <span class="nc">ConfigureSmartcardCommand</span><span class="p">(</span><span class="n">LEIAStructure</span><span class="p">):</span>
     <span class="n">_pack_</span> <span class="o">=</span> <span class="mi">1</span>
@@ -953,6 +983,34 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_testWaitingFlag</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">timeout</span> <span class="o">=</span> <span class="mi">10</span></div>
 
+    <span class="c1"># Set the mode to either USART or BITBANG</span>
+    <span class="k">def</span> <span class="nf">set_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="n">Mode</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">USART</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">LEIAMode</span><span class="p">(</span><span class="n">Mode</span><span class="o">.</span><span class="n">USART</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">Mode</span><span class="o">.</span><span class="n">BITBANG</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="n">LEIAMode</span><span class="p">(</span><span class="n">Mode</span><span class="o">.</span><span class="n">BITBANG</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid mode for &#39;set_mode&#39; (e) command.&quot;</span>
+            <span class="p">)</span>
+        
+    <span class="c1"># Get the current mode</span>
+    <span class="k">def</span> <span class="nf">get_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+        <span class="n">r_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_read_response_size</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">r_size</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid response size for &#39;get_mode&#39; (g) command.&quot;</span>
+            <span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ser</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x00</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">USART</span>
+        <span class="k">elif</span> <span class="n">r</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x01</span><span class="s2">&quot;</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="n">Mode</span><span class="o">.</span><span class="n">BITBANG</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mode</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">mode</span>
+
 <div class="viewcode-block" id="LEIA.configure_smartcard"><a class="viewcode-back" href="../api.html#smartleia.LEIA.configure_smartcard">[docs]</a>    <span class="k">def</span> <span class="nf">configure_smartcard</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">protocol_to_use</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">T</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1008,7 +1066,7 @@
 
             <span class="c1"># We always try to negotiate a T=1 communication if not specifically asked otherwise</span>
             <span class="c1"># Fallback to auto if this is not possible!</span>
-            <span class="k">if</span> <span class="n">protocol_to_use</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">AUTO</span><span class="p">:</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">protocol_to_use</span> <span class="o">==</span> <span class="n">T</span><span class="o">.</span><span class="n">AUTO</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">negotiate_pts</span> <span class="o">==</span> <span class="kc">True</span><span class="p">):</span>
                 <span class="k">try</span><span class="p">:</span>
                     <span class="n">struct</span> <span class="o">=</span> <span class="n">ConfigureSmartcardCommand</span><span class="p">(</span>
                         <span class="n">T</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">T1</span><span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
@@ -1085,7 +1143,7 @@
 
             <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="n">sts</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ATR</span><span class="p">:</span>
+<div class="viewcode-block" id="LEIA.get_timers"><a class="viewcode-back" href="../api.html#smartleia.LEIA.get_timers">[docs]</a>    <span class="k">def</span> <span class="nf">get_timers</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Timers</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the `timers` of the last command.</span>
 
@@ -1137,6 +1195,7 @@
 
         <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">r</span> <span class="o">==</span> <span class="sa">b</span><span class="s2">&quot;</span><span class="se">\x01</span><span class="s2">&quot;</span> <span class="k">else</span> <span class="kc">False</span></div>
 
+    <span class="c1"># DFU mode</span>
 <div class="viewcode-block" id="LEIA.dfu"><a class="viewcode-back" href="../api.html#smartleia.LEIA.dfu">[docs]</a>    <span class="k">def</span> <span class="nf">dfu</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Reboot LEIA in DFU mode.</span>
@@ -1144,6 +1203,27 @@
         <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;u&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+
+    <span class="c1"># AVR flasher mode</span>
+<div class="viewcode-block" id="LEIA.flasher"><a class="viewcode-back" href="../api.html#smartleia.LEIA.flasher">[docs]</a>    <span class="k">def</span> <span class="nf">flasher</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reboot LEIA in funcard flasher mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;f&quot;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span><span class="p">:</span>
+                <span class="k">pass</span></div>
+ 
+<div class="viewcode-block" id="LEIA.smartreader"><a class="viewcode-back" href="../api.html#smartleia.LEIA.smartreader">[docs]</a>    <span class="k">def</span> <span class="nf">smartreader</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Reboot LEIA in funcard smartreader mode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_send_command</span><span class="p">(</span><span class="sa">b</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
             <span class="k">except</span> <span class="n">serial</span><span class="o">.</span><span class="n">SerialException</span><span class="p">:</span>
                 <span class="k">pass</span></div>
 
@@ -1328,28 +1408,25 @@
            
           </div>
           <footer>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2019-2020, ANSSI
+        &#169; Copyright 2019-2020, ANSSI.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 

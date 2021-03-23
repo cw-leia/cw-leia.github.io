@@ -3,9 +3,9 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>6. API &mdash; LEIA 0.2.2 documentation</title>
   
@@ -17,7 +17,10 @@
 
   
   
+
   
+  
+
   
 
   
@@ -30,7 +33,6 @@
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-        <script src="_static/language_data.js"></script>
         <script src="http://wavedrom.com/skins/default.js"></script>
         <script src="http://wavedrom.com/wavedrom.min.js"></script>
         <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
@@ -55,7 +57,7 @@
           
 
           
-            <a href="index.html" class="icon icon-home" alt="Documentation Home"> LEIA
+            <a href="index.html" class="icon icon-home"> LEIA
           
 
           
@@ -136,6 +138,8 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
@@ -147,7 +151,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -190,71 +194,71 @@
 <span class="target" id="module-smartleia"></span><p>Here is detailed the python API of the <cite>smartleia</cite> package.</p>
 <dl class="py class">
 <dt id="smartleia.TriggerPoints">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">TriggerPoints</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#TriggerPoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.TriggerPoints" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">TriggerPoints</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#TriggerPoints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.TriggerPoints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Class utility to reference the trigger points available.</p>
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_GET_ATR_PRE">
-<code class="sig-name descname">TRIG_GET_ATR_PRE</code><em class="property"> = 1</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_GET_ATR_PRE" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_GET_ATR_PRE</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_GET_ATR_PRE" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point before getting the ATR.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_GET_ATR_POST">
-<code class="sig-name descname">TRIG_GET_ATR_POST</code><em class="property"> = 2</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_GET_ATR_POST" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_GET_ATR_POST</span></code><em class="property"> <span class="pre">=</span> <span class="pre">2</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_GET_ATR_POST" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just after the ATR has been received.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_SHORT_T0">
-<code class="sig-name descname">TRIG_PRE_SEND_APDU_SHORT_T0</code><em class="property"> = 4</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_SHORT_T0" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_PRE_SEND_APDU_SHORT_T0</span></code><em class="property"> <span class="pre">=</span> <span class="pre">4</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_SHORT_T0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before sending a simple APDU in T=0.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_FRAGMENTED_T0">
-<code class="sig-name descname">TRIG_PRE_SEND_APDU_FRAGMENTED_T0</code><em class="property"> = 8</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_FRAGMENTED_T0" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_PRE_SEND_APDU_FRAGMENTED_T0</span></code><em class="property"> <span class="pre">=</span> <span class="pre">8</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_FRAGMENTED_T0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before sending a fragmented APDU in T=0.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_T1">
-<code class="sig-name descname">TRIG_PRE_SEND_APDU_T1</code><em class="property"> = 16</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_T1" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_PRE_SEND_APDU_T1</span></code><em class="property"> <span class="pre">=</span> <span class="pre">16</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU_T1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before sending an APDU in T=1.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_PRE_SEND_APDU">
-<code class="sig-name descname">TRIG_PRE_SEND_APDU</code><em class="property"> = 28</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_PRE_SEND_APDU</span></code><em class="property"> <span class="pre">=</span> <span class="pre">28</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_PRE_SEND_APDU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before sending an APDU</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_POST_RESP_T0">
-<code class="sig-name descname">TRIG_POST_RESP_T0</code><em class="property"> = 64</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP_T0" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_POST_RESP_T0</span></code><em class="property"> <span class="pre">=</span> <span class="pre">64</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP_T0" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before receiving a RESP in T=0.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_POST_RESP_T1">
-<code class="sig-name descname">TRIG_POST_RESP_T1</code><em class="property"> = 128</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP_T1" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_POST_RESP_T1</span></code><em class="property"> <span class="pre">=</span> <span class="pre">128</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP_T1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before receiving a RESP in T=1.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_POST_RESP">
-<code class="sig-name descname">TRIG_POST_RESP</code><em class="property"> = 192</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_POST_RESP</span></code><em class="property"> <span class="pre">=</span> <span class="pre">192</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_POST_RESP" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just before receiving a RESP</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_IRQ_PUTC">
-<code class="sig-name descname">TRIG_IRQ_PUTC</code><em class="property"> = 256</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_IRQ_PUTC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_IRQ_PUTC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">256</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_IRQ_PUTC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point just after sending a byte through the ISO7816 interface.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.TriggerPoints.TRIG_IRQ_GETC">
-<code class="sig-name descname">TRIG_IRQ_GETC</code><em class="property"> = 512</em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_IRQ_GETC" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">TRIG_IRQ_GETC</span></code><em class="property"> <span class="pre">=</span> <span class="pre">512</span></em><a class="headerlink" href="#smartleia.TriggerPoints.TRIG_IRQ_GETC" title="Permalink to this definition">¶</a></dt>
 <dd><p>Point juster afted a byte has been received through the ISO7816 interface.</p>
 </dd></dl>
 
@@ -262,23 +266,23 @@
 
 <dl class="py class">
 <dt id="smartleia.T">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">T</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#T"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.T" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">T</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#T"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.T" title="Permalink to this definition">¶</a></dt>
 <dd><p>ISO7816 protocol selection.</p>
 <dl class="py attribute">
 <dt id="smartleia.T.AUTO">
-<code class="sig-name descname">AUTO</code><em class="property"> = -1</em><a class="headerlink" href="#smartleia.T.AUTO" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">AUTO</span></code><em class="property"> <span class="pre">=</span> <span class="pre">-1</span></em><a class="headerlink" href="#smartleia.T.AUTO" title="Permalink to this definition">¶</a></dt>
 <dd><p>The protocol is negotiated.</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.T.T0">
-<code class="sig-name descname">T0</code><em class="property"> = 0</em><a class="headerlink" href="#smartleia.T.T0" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">T0</span></code><em class="property"> <span class="pre">=</span> <span class="pre">0</span></em><a class="headerlink" href="#smartleia.T.T0" title="Permalink to this definition">¶</a></dt>
 <dd><p>The protocol is T=0</p>
 </dd></dl>
 
 <dl class="py attribute">
 <dt id="smartleia.T.T1">
-<code class="sig-name descname">T1</code><em class="property"> = 1</em><a class="headerlink" href="#smartleia.T.T1" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">T1</span></code><em class="property"> <span class="pre">=</span> <span class="pre">1</span></em><a class="headerlink" href="#smartleia.T.T1" title="Permalink to this definition">¶</a></dt>
 <dd><p>The protocol is T=1</p>
 </dd></dl>
 
@@ -286,13 +290,13 @@
 
 <dl class="py class">
 <dt id="smartleia.Triggers">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">Triggers</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#Triggers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.Triggers" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">Triggers</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#Triggers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.Triggers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An enumeration.</p>
 </dd></dl>
 
 <dl class="py class">
 <dt id="smartleia.TriggerStrategy">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">TriggerStrategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">delay</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">single</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">point_list</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#TriggerStrategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.TriggerStrategy" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">TriggerStrategy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_list</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#TriggerStrategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.TriggerStrategy" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
 <dd class="field-odd"><ul class="simple">
@@ -305,7 +309,7 @@
 
 <dl class="py function">
 <dt id="smartleia.create_APDU_from_bytes">
-<code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">create_APDU_from_bytes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">_bytes</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#create_APDU_from_bytes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.create_APDU_from_bytes" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">create_APDU_from_bytes</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_bytes</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#create_APDU_from_bytes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.create_APDU_from_bytes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create an <a class="reference internal" href="#smartleia.APDU" title="smartleia.APDU"><code class="xref py py-class docutils literal notranslate"><span class="pre">APDU</span></code></a> instance from a list of bytes.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">create_APDU_from_bytes</span><span class="p">([</span><span class="mh">0x00</span><span class="p">,</span><span class="mh">0x01</span><span class="p">,</span><span class="mh">0x02</span><span class="p">,</span><span class="mh">0x03</span><span class="p">,</span><span class="mh">0x04</span><span class="p">,</span><span class="mh">0x05</span><span class="p">,</span><span class="mh">0x06</span><span class="p">,</span><span class="mh">0x07</span><span class="p">,</span><span class="mh">0x08</span><span class="p">,</span><span class="mh">0x09</span><span class="p">])</span>
@@ -321,7 +325,7 @@
 
 <dl class="py class">
 <dt id="smartleia.APDU">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">APDU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">cla</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">ins</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">p1</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">p2</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">lc</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">le</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">send_le</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#APDU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.APDU" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">APDU</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cla</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ins</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lc</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">le</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">send_le</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#APDU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.APDU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object for representing an APDU.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -356,7 +360,7 @@
 
 <dl class="py class">
 <dt id="smartleia.RESP">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">RESP</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sw1</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">sw2</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">delta_t</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">delta_t_answer</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#RESP"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.RESP" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">RESP</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sw1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sw2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta_t_answer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#RESP"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.RESP" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to represent an RESP.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -385,7 +389,7 @@
 
 <dl class="py class">
 <dt id="smartleia.ATR">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">ATR</code><a class="reference internal" href="_modules/smartleia.html#ATR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.ATR" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">ATR</span></code><a class="reference internal" href="_modules/smartleia.html#ATR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.ATR" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class is used to represent an ATR.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Variables</dt>
@@ -413,7 +417,7 @@
 
 <dl class="py class">
 <dt id="smartleia.LEIA">
-<em class="property">class </em><code class="sig-prename descclassname">smartleia.</code><code class="sig-name descname">LEIA</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">device</span><span class="o">=</span><span class="default_value">''</span></em>, <em class="sig-param"><span class="n">serial_factory</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">auto_open</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">smartleia.</span></code><code class="sig-name descname"><span class="pre">LEIA</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">serial_factory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">auto_open</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA" title="Permalink to this definition">¶</a></dt>
 <dd><p>This class connects to a LEIA board and provides an access to all the device functionnality.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -425,19 +429,19 @@
 </dl>
 <dl class="py method">
 <dt id="smartleia.LEIA.reset">
-<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.reset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.reset" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">reset</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.reset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.reset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reset LEIA.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.open">
-<code class="sig-name descname">open</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.open"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.open" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">open</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.open"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.open" title="Permalink to this definition">¶</a></dt>
 <dd><p>Open LEIA.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.configure_smartcard">
-<code class="sig-name descname">configure_smartcard</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">protocol_to_use</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">ETU_to_use</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">freq_to_use</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">negotiate_pts</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">negotiate_baudrate</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.configure_smartcard"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.configure_smartcard" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">configure_smartcard</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">protocol_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ETU_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">freq_to_use</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negotiate_pts</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">negotiate_baudrate</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.configure_smartcard"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.configure_smartcard" title="Permalink to this definition">¶</a></dt>
 <dd><p>Configure a smartcard connection.</p>
 <p>Method to configure a smartcard.
 By default, the smartcard reader will negociate with the smartcard the mode (T=0 or T=1), the ETU and
@@ -467,7 +471,7 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.get_trigger_strategy">
-<code class="sig-name descname">get_trigger_strategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">SID</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_trigger_strategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.get_trigger_strategy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_trigger_strategy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SID</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_trigger_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.get_trigger_strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the strategy N°SID.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -484,7 +488,7 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.set_trigger_strategy">
-<code class="sig-name descname">set_trigger_strategy</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">SID</span></em>, <em class="sig-param"><span class="n">point_list</span></em>, <em class="sig-param"><span class="n">delay</span><span class="o">=</span><span class="default_value">0</span></em>, <em class="sig-param"><span class="n">single</span><span class="o">=</span><span class="default_value">0</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.set_trigger_strategy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.set_trigger_strategy" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">set_trigger_strategy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">SID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">point_list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.set_trigger_strategy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.set_trigger_strategy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set and activate a trigger strategy.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -499,7 +503,7 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.get_timers">
-<code class="sig-name descname">get_timers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_timers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.get_timers" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_timers</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_timers"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.get_timers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the <cite>timers</cite> of the last command.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -513,7 +517,7 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.get_ATR">
-<code class="sig-name descname">get_ATR</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_ATR"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.get_ATR" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">get_ATR</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.get_ATR"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.get_ATR" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return the <cite>ATR</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
@@ -527,7 +531,7 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.is_card_inserted">
-<code class="sig-name descname">is_card_inserted</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.is_card_inserted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.is_card_inserted" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">is_card_inserted</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.is_card_inserted"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.is_card_inserted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Return <cite>True</cite> if a smartcard is inserted in LEIA.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
@@ -541,18 +545,40 @@ It is possible to:</p>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.dfu">
-<code class="sig-name descname">dfu</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.dfu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.dfu" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">dfu</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.dfu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.dfu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reboot LEIA in DFU mode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">None</span></code></p>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartleia.LEIA.flasher">
+<code class="sig-name descname"><span class="pre">flasher</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.flasher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.flasher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reboot LEIA in funcard flasher mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="smartleia.LEIA.smartreader">
+<code class="sig-name descname"><span class="pre">smartreader</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.smartreader"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.smartreader" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reboot LEIA in funcard smartreader mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt id="smartleia.LEIA.send_APDU">
-<code class="sig-name descname">send_APDU</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">apdu</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.send_APDU"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#smartleia.LEIA.send_APDU" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">send_APDU</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">apdu</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/smartleia.html#LEIA.send_APDU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#smartleia.LEIA.send_APDU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Send an <cite>APDU</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -582,37 +608,29 @@ It is possible to:</p>
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="publi.html" class="btn btn-neutral float-right" title="7. Publications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="c/test.html" class="btn btn-neutral float-left" title="5. Firmware Doc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="publi.html" class="btn btn-neutral float-right" title="7. Publications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="c/test.html" class="btn btn-neutral float-left" title="5. Firmware Doc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        
-        &copy; Copyright 2019-2020, ANSSI
+        &#169; Copyright 2019-2020, ANSSI.
 
     </p>
   </div>
     
     
     
-    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     
-    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
     
     provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
